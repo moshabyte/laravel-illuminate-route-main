@@ -1,0 +1,22 @@
+{
+    "name": "illuminate/router",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Illuminate\\Router\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Illuminate\\Router\\IlluminateRouterServiceProvider"
+            ],
+            "aliases": {
+                "Installer": "Illuminate\\Router\\Facades\\Installer"
+            }
+        }
+    }
+}
