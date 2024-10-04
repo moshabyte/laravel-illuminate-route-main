@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Router;
+namespace Illuminete\Router;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
