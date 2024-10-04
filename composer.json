@@ -12,7 +12,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Illuminete\\Router\\IllumineteRouterServiceProvider"
+                "Illuminete\\Router\\RouterServiceProvider"
             ],
             "aliases": {
               
