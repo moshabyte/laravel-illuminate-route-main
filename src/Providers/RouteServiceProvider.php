@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Router\Providers;
+namespace Illuminete\Router\Providers;
 
 use Closure;
 use Illuminate\Contracts\Routing\UrlGenerator;
