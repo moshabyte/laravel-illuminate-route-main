@@ -2,5 +2,5 @@
 
 You can install the package with [Composer](http://getcomposer.org/) using the following command:
 ```bash
-composer require illuminate/router
+composer require illuminete/router
 ```
