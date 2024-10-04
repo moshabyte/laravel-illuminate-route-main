@@ -4,7 +4,7 @@ namespace Illuminate\Router;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-class IllumineteRouterServiceProvider extends ServiceProvider
+class RouterServiceProvider extends ServiceProvider
 {
 
 
